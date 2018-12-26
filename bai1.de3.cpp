@@ -22,7 +22,7 @@ void GhiFdb();
 void Themmoi(Contact c);
 void Lietke();
 
-void Capnhat(Contact c);
+void Capnhat();
 void Xoacontact(char *sdt);
 vector <Contact> Timtheoten(char* ten);
 
@@ -68,8 +68,79 @@ void Lietke(){
 			Xuat(db[i]);
 		}
 }
+void Capnhat(){
+	char sdtt[11]; 
+	do{
+		cout<<endl<<"Nhap sdt cua ban ghi can chinh sua: ";
+		cin.getline(sdtt,11);
+		if(strcmp(sdtt,"\0")!=0)
+			{
+			for(int i = 0; i <db.size(); i++)
+			if(strcmp(db[i].sdt,sdtt)==0){
+				
+				cout<<endl<<"Nhap ten muon sua: ";
+				cin.getline(db[i].ten,20);
+				
+				cout<<endl<<"Nhap sdt muon sua: ";
+				cin.getline(db[i].sdt,10);
+			
+				cout<<endl<<"Nhap email muon sua: ";
+				cin.getline(db[i].email,20);
+											
+				cout<<endl<<"Nhap diachi muon sua: ";
+				cin.getline(db[i].diachi,50);
+				
+					
+			}
+		}
+	}while(strcmp(sdtt,"\0")!=0);
+}
 
+int Tim(char tent[20]){
+	for(int i=0; i<db.size(); i++)
+		if(strcmp(db[i].ten,tent) == 0)
+			return i; 
+	return -1;
+}
 
+void Xoacontact(){
+	char tent[20];
+	do{
+		cout<<endl<<"Nhap ten cua ban ghi can xoa: ";
+		cin.getline(tent,20);
+		
+		if(strcmp(tent,"\0")!=0)
+		{
+			int vt = Tim(tent);
+			int n = db.size();
+			if(vt == -1) cout<<endl<<"Khong co contact nay!";
+			else{
+				for(int i = vt;i<n-1;i++)
+					db[i] = db[i+1];
+					db.pop_back();
+				
+			}
+		}
+			
+	}while(strcmp(tent,"\0")!=0);
+}
+
+void Intheoten(){
+	char tent[20];
+	do{
+		cout<<endl<<"Nhap ten cua ban ghi muon tim: ";
+		cin.getline(tent,20);
+		
+		if(strcmp(tent,"\0")!=0)
+		{
+			for(int i = 0; i <db.size(); i++)
+			if(strcmp(db[i].ten,tent)==0){
+				Xuat(db[i]);					
+				}
+		}
+			
+	}while(strcmp(tent,"\0")!=0);
+}
 
 int main(){
 	
@@ -77,6 +148,10 @@ int main(){
 	
 	Themmoi(c);	
 	Lietke();
-	
+	Capnhat();
+	Lietke();
+	Xoacontact();
+	Lietke();
+	Intheoten();
 	getch();
 }
